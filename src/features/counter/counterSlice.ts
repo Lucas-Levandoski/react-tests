@@ -4,11 +4,19 @@ import { fetchCount } from './counterAPI';
 
 export interface CounterState {
   value: number;
+  randomObject: {
+    prop1: boolean,
+    prop2: number
+  }
   status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: CounterState = {
   value: 0,
+  randomObject: {
+    prop1: false,
+    prop2: 10,
+  },
   status: 'idle',
 };
 
@@ -74,11 +82,11 @@ export const selectCount = (state: RootState) => state.counter.value;
 // Here's an example of conditionally dispatching actions based on current state.
 export const incrementIfOdd =
   (amount: number): AppThunk =>
-  (dispatch, getState) => {
-    const currentValue = selectCount(getState());
-    if (currentValue % 2 === 1) {
-      dispatch(incrementByAmount(amount));
-    }
-  };
+    (dispatch, getState) => {
+      const currentValue = selectCount(getState());
+      if (currentValue % 2 === 1) {
+        dispatch(incrementByAmount(amount));
+      }
+    };
 
 export default counterSlice.reducer;
